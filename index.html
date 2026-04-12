@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modern Navbar</title>
+  <title>BridgeVerse</title>
   <style>
     * {
       margin: 0;
@@ -100,6 +100,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .header-nav a {
@@ -109,6 +110,7 @@
       text-decoration: none;
       transition: 0.2s;
       border-radius: 6px;
+      white-space: nowrap;
     }
 
     .header-nav a:hover {
@@ -117,7 +119,7 @@
 
     .content {
       margin-top: 70px;
-      padding: 20px;
+      padding: clamp(12px, 2.4vw, 24px);
     }
 
     .intro-panel {
@@ -492,19 +494,130 @@
       scroll-behavior: smooth;
     }
 
+    @media (max-width: 1200px) {
+      .timeline-item {
+        grid-template-columns: 1fr 120px 1fr;
+      }
+
+      .timeline-card {
+        width: min(100%, 560px);
+      }
+
+      .vertical-showcase {
+        gap: 36px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      header {
+        padding: 12px 14px;
+        gap: 12px;
+      }
+
+      .title {
+        font-size: 18px;
+      }
+
+      .header-nav {
+        gap: 6px;
+      }
+
+      .header-nav a {
+        padding: 7px 9px;
+        font-size: 14px;
+      }
+
+      .intro-panel {
+        padding: 22px;
+        margin-bottom: 30px;
+      }
+
+      .intro-panel h1 {
+        font-size: 30px;
+      }
+
+      .intro-panel h2 {
+        font-size: 26px;
+      }
+
+      .timeline-wrap {
+        gap: 22px;
+      }
+
+      .timeline-wrap::before {
+        left: 14px;
+        transform: none;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-left: 34px;
+      }
+
+      .timeline-item.left .timeline-card,
+      .timeline-item.right .timeline-card {
+        grid-column: auto;
+        justify-self: stretch;
+        transform: translateX(0);
+      }
+
+      .timeline-dot {
+        left: 14px;
+        width: 14px;
+        height: 14px;
+      }
+
+      .timeline-card {
+        width: 100%;
+        padding: 15px;
+      }
+
+      .timeline-media.double {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-photo {
+        height: clamp(180px, 38vw, 260px);
+      }
+
+      .v-slide {
+        width: 100%;
+      }
+
+      .v-slide:nth-child(odd),
+      .v-slide:nth-child(even) {
+        transform: translateY(48px) scale(0.97);
+      }
+
+      .v-slide-image {
+        height: clamp(220px, 42vw, 420px);
+      }
+    }
+
     @media (max-width: 600px) {
       header {
         flex-direction: column;
         align-items: flex-start;
+        padding: 10px 12px;
       }
 
       .header-nav {
         width: 100%;
-        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .header-nav a {
+        font-size: 13px;
+        padding: 6px 8px;
+      }
+
+      .menu-btn {
+        font-size: 20px;
       }
 
       .intro-panel {
-        padding: 20px;
+        padding: 16px;
       }
 
       .intro-panel h1 {
@@ -521,14 +634,14 @@
       }
 
       .timeline-wrap::before {
-        left: 18px;
+        left: 10px;
         transform: none;
       }
 
       .timeline-item {
         grid-template-columns: 1fr;
         min-height: auto;
-        padding-left: 42px;
+        padding-left: 24px;
       }
 
       .timeline-item.left .timeline-card,
@@ -539,7 +652,9 @@
       }
 
       .timeline-dot {
-        left: 18px;
+        left: 10px;
+        width: 12px;
+        height: 12px;
       }
 
       .timeline-card {
@@ -575,11 +690,7 @@
       }
 
       .timeline-photo {
-        height: 190px;
-      }
-
-      .timeline-item {
-        transform: translateY(42px) scale(0.95);
+        height: clamp(170px, 50vw, 240px);
       }
 
       .services-showcase {
@@ -587,21 +698,43 @@
       }
 
       .vertical-showcase {
-        gap: 26px;
+        gap: 20px;
       }
 
       .v-slide {
-        padding: 14px;
+        padding: 12px;
       }
 
       .v-slide:nth-child(odd),
       .v-slide:nth-child(even) {
-        transform: translateY(44px) scale(0.97);
+        transform: translateY(38px) scale(0.98);
       }
 
       .v-slide p {
         font-size: 15px;
         line-height: 1.7;
+      }
+
+      .v-slide-image {
+        height: clamp(180px, 52vw, 260px);
+      }
+    }
+
+    @media (max-width: 380px) {
+      .title {
+        font-size: 16px;
+      }
+
+      .header-nav a {
+        font-size: 12px;
+      }
+
+      .intro-panel h1 {
+        font-size: 24px;
+      }
+
+      .intro-panel h2 {
+        font-size: 20px;
       }
     }
   </style>
@@ -610,7 +743,10 @@
 
   <header>
     <button class="menu-btn" onclick="toggleDrawer()" aria-label="Open menu">☰</button>
-    <div class="title">My Website</div>
+    <div>
+      <div class="title">BridgeVerse</div>
+      <div>Bridges: Bridging Connections</div>
+    </div>
     <nav class="header-nav">
       <a href="#home">Home</a>
       <a href="#about">About</a>

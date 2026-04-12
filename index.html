@@ -1,11 +1,911 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Navbar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: #222;
+      color: #fff;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      gap: 20px;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .menu-btn {
+      font-size: 24px;
+      cursor: pointer;
+      border: 1px solid #555;
+      border-radius: 6px;
+      padding: 2px 10px;
+      background: transparent;
+      color: #fff;
+    }
+
+    .menu-btn:hover {
+      background: #444;
+    }
+
+    .left-drawer {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100vh;
+      background: #1f1f1f;
+      border-right: 1px solid #333;
+      transition: left 0.3s ease;
+      z-index: 1100;
+      padding: 20px;
+    }
+
+    .left-drawer.active {
+      left: 0;
+    }
+
+    .drawer-close-btn {
+      font-size: 20px;
+      cursor: pointer;
+      border: 1px solid #555;
+      border-radius: 6px;
+      padding: 2px 10px;
+      background: transparent;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .drawer-close-btn:hover {
+      background: #444;
+    }
+
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 1050;
+    }
+
+    .drawer-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-nav a {
+      display: inline-block;
+      padding: 8px 12px;
+      color: white;
+      text-decoration: none;
+      transition: 0.2s;
+      border-radius: 6px;
+    }
+
+    .header-nav a:hover {
+      background: #444;
+    }
+
+    .content {
+      margin-top: 70px;
+      padding: 20px;
+    }
+
+    .intro-panel {
+      max-width: 1280px;
+      margin: 0 auto 50px;
+      padding: 28px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 22px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+      width: 100%;
+    }
+
+    .intro-panel h1,
+    .intro-panel h2 {
+      color: #111827;
+      line-height: 1.2;
+    }
+
+    .intro-panel h1 {
+      font-size: 34px;
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .intro-panel h2 {
+      margin-top: 22px;
+      margin-bottom: 14px;
+      font-size: 30px;
+      letter-spacing: 0.08em;
+    }
+
+    .intro-panel img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 18px;
+      object-fit: cover;
+      margin-bottom: 14px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .image-link {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+    }
+
+    .image-link .timeline-photo,
+    .image-link img {
+      display: block;
+      width: 100%;
+    }
+
+    .intro-panel p,
+    .intro-panel pre {
+      line-height: 1.7;
+      color: #374151;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .intro-panel p {
+      text-align: justify;
+      text-justify: inter-word;
+      margin-bottom: 12px;
+    }
+
+    .intro-panel pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      text-align: justify;
+      margin: 0;
+    }
+
+    .timeline-wrap {
+      position: relative;
+      max-width: 1600px;
+      margin: 40px auto 0;
+      padding: 20px 0;
+      display: grid;
+      gap: 28px;
+    }
+
+    .timeline-wrap::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, #222, #7b7b7b, #222);
+      border-radius: 999px;
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 220px 1fr;
+      align-items: center;
+      min-height: 320px;
+    }
+
+    .timeline-item.left .timeline-card {
+      grid-column: 1;
+      justify-self: end;
+      transform: translateX(-96px);
+    }
+
+    .timeline-item.right .timeline-card {
+      grid-column: 3;
+      justify-self: start;
+      transform: translateX(96px);
+    }
+
+    .timeline-card {
+      width: min(100%, 640px);
+      padding: 18px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 22px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+      align-items: stretch;
+      opacity: 0;
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, opacity;
+    }
+
+    .timeline-item:nth-child(1) .timeline-card { transition-delay: 0.05s; }
+    .timeline-item:nth-child(2) .timeline-card { transition-delay: 0.15s; }
+    .timeline-item:nth-child(3) .timeline-card { transition-delay: 0.25s; }
+    .timeline-item:nth-child(4) .timeline-card { transition-delay: 0.35s; }
+
+    .timeline-item.in-view .timeline-card {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .timeline-card h3 {
+      font-size: 22px;
+      color: #111827;
+      line-height: 1.25;
+      margin-top: 2px;
+    }
+
+    .timeline-card p {
+      color: #4b5563;
+      line-height: 1.75;
+      margin-top: 2px;
+    }
+
+    .card-details-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: start;
+      width: 100%;
+    }
+
+    .card-details-grid.modern-layout {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .card-detail {
+      padding: 16px;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      height: 100%;
+      width: 100%;
+    }
+
+    .card-detail.featured {
+      padding: 18px 20px;
+    }
+
+    .card-detail h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #111827;
+      line-height: 1.35;
+    }
+
+    .card-detail p {
+      color: #374151;
+      line-height: 1.7;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .meta {
+      color: #4b5563;
+      font-size: 14px;
+      line-height: 1.65;
+      text-align: left;
+    }
+
+    .meta-line {
+      margin-top: 6px;
+    }
+
+    .meta-label {
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .timeline-card h3 {
+      font-size: 22px;
+      color: #111827;
+    }
+
+    .timeline-card p {
+      color: #4b5563;
+      line-height: 1.7;
+    }
+
+    .timeline-media {
+      display: grid;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .timeline-media.single {
+      grid-template-columns: 1fr;
+    }
+
+    .timeline-media.double {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .timeline-photo {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.12);
+      display: block;
+      background: #dbe4f0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: #111827;
+      border: 4px solid #fff;
+      box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.12);
+      z-index: 2;
+    }
+
+    section {
+      height: 100vh;
+      padding: 20px;
+      border-bottom: 1px solid #ccc;
+      scroll-margin-top: 90px;
+    }
+
+    .timeline-section {
+      height: auto;
+      min-height: auto;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .services-showcase {
+      height: auto;
+      min-height: auto;
+      border-bottom: none;
+      padding-top: 30px;
+      padding-bottom: 50px;
+    }
+
+    .vertical-showcase {
+      max-width: 1500px;
+      margin: 0 auto;
+      display: grid;
+      gap: 50px;
+    }
+
+    .v-slide {
+      width: min(100%, 1200px);
+      justify-self: center;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 22px 44px rgba(0, 0, 0, 0.12);
+      opacity: 0;
+      transform: translateY(80px) scale(0.94);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, opacity;
+    }
+
+    .v-slide:nth-child(odd) {
+      transform: translateX(-90px) translateY(80px) scale(0.94);
+    }
+
+    .v-slide:nth-child(even) {
+      transform: translateX(90px) translateY(80px) scale(0.94);
+    }
+
+    .v-slide.in-view {
+      opacity: 1;
+      transform: translateX(0) translateY(0) scale(1);
+    }
+
+    .v-slide-image-link {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+    }
+
+    .v-slide-image {
+      width: 100%;
+      height: clamp(300px, 46vw, 520px);
+      object-fit: cover;
+      border-radius: 18px;
+      display: block;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .v-slide p {
+      margin-top: 16px;
+      font-size: 18px;
+      line-height: 1.8;
+      color: #334155;
+      text-align: left;
+    }
+
+    footer {
+      background: #222;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .contact-links a {
+      color: #f1f1f1;
+      text-decoration: none;
+      padding: 6px 10px;
+      border: 1px solid #555;
+      border-radius: 6px;
+    }
+
+    .contact-links a:hover {
+      background: #444;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-nav {
+        width: 100%;
+        flex-wrap: wrap;
+      }
+
+      .intro-panel {
+        padding: 20px;
+      }
+
+      .intro-panel h1 {
+        font-size: 28px;
+      }
+
+      .intro-panel h2 {
+        font-size: 24px;
+      }
+
+      .intro-panel p,
+      .intro-panel pre {
+        text-align: left;
+      }
+
+      .timeline-wrap::before {
+        left: 18px;
+        transform: none;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-left: 42px;
+      }
+
+      .timeline-item.left .timeline-card,
+      .timeline-item.right .timeline-card {
+        grid-column: auto;
+        justify-self: stretch;
+        transform: translateX(0);
+      }
+
+      .timeline-dot {
+        left: 18px;
+      }
+
+      .timeline-card {
+        width: 100%;
+        padding: 16px;
+      }
+
+      .timeline-media.double {
+        grid-template-columns: 1fr;
+      }
+
+      .card-details-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .card-details-grid.modern-layout {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .timeline-card h3 {
+        font-size: 20px;
+      }
+
+      .card-detail {
+        padding: 14px;
+      }
+
+      .card-detail p,
+      .meta {
+        font-size: 14px;
+      }
+
+      .timeline-photo {
+        height: 190px;
+      }
+
+      .timeline-item {
+        transform: translateY(42px) scale(0.95);
+      }
+
+      .services-showcase {
+        padding-top: 18px;
+      }
+
+      .vertical-showcase {
+        gap: 26px;
+      }
+
+      .v-slide {
+        padding: 14px;
+      }
+
+      .v-slide:nth-child(odd),
+      .v-slide:nth-child(even) {
+        transform: translateY(44px) scale(0.97);
+      }
+
+      .v-slide p {
+        font-size: 15px;
+        line-height: 1.7;
+      }
+    }
+  </style>
 </head>
 <body>
-    hello
+
+  <header>
+    <button class="menu-btn" onclick="toggleDrawer()" aria-label="Open menu">☰</button>
+    <div class="title">My Website</div>
+    <nav class="header-nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div id="drawerOverlay" class="drawer-overlay" onclick="closeDrawer()"></div>
+  <div id="leftDrawer" class="left-drawer">
+    <button class="drawer-close-btn" onclick="closeDrawer()" aria-label="Close menu">x</button>
+  </div>
+
+  <div class="content">
+    <section id="home" class="timeline-section">
+      <div class="intro-panel">
+        <h1>Home</h1>
+        <a class="image-link" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Save_me_san_francisco2.jpg/960px-Save_me_san_francisco2.jpg?_=20121225155228" target="_blank" rel="noopener noreferrer">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Save_me_san_francisco2.jpg/960px-Save_me_san_francisco2.jpg?_=20121225155228" alt="">
+        </a>
+
+        <pre>
+            Bridge engineering is a specialized field of civil engineering that focuses on the construction, design, and maintenance of bridges. These structures serve as a link between places that are separated by either natural or man-made barriers such as highways, rivers, and even valleys. Bridges play an important role in transportation, as they help reduce travel time and facilitate the smooth movement of goods, services, and people. Engineers always take into careful consideration several key factors, such as load capacity, materials, environmental conditions, and long-term durability, to ensure the bridge remains safe and standing for an extended period.
+        </pre>
+
+        <h2>HISTORY</h2>
+        <p>The Development of Bridge Engineering:
+            ​
+            Bridge engineering began in ancient civilizations, where early humans created simple crossings using wood, vines, and stones to pass over rivers and rough terrain. And as societies grew, bridge design became even more advanced, which led to stronger and more permanent structures. Over a period of time, engineering evolved from natural materials to modern high-tech construction.
+            </p>
+      </div>
+
+      <div class="timeline-wrap" aria-label="Bridge engineering timeline showcase">
+        <div class="timeline-item left">
+          <div class="timeline-card">
+            <div class="timeline-media double">
+              <a class="image-link" href="https://thumbs.dreamstime.com/b/old-log-bridge-over-small-river-old-log-bridge-over-small-calm-river-spring-april-three-thick-long-logs-163223450.jpg?w=576" target="_blank" rel="noopener noreferrer">
+                <img class="timeline-photo" src="https://thumbs.dreamstime.com/b/old-log-bridge-over-small-river-old-log-bridge-over-small-calm-river-spring-april-three-thick-long-logs-163223450.jpg?w=576" alt="Old log bridge over a small river">
+              </a>
+              <a class="image-link" href="https://cms.travelnoire.com/cdn-cgi/image/format=auto,slow-connection-quality=30,onerror=redirect/https://cms.travelnoire.com/wp-content/uploads/2021/08/1024px-Inka_suspension_bridge_Qeswachaka_DSC_2730.jpg" target="_blank" rel="noopener noreferrer">
+                <img class="timeline-photo" src="https://cms.travelnoire.com/cdn-cgi/image/format=auto,slow-connection-quality=30,onerror=redirect/https://cms.travelnoire.com/wp-content/uploads/2021/08/1024px-Inka_suspension_bridge_Qeswachaka_DSC_2730.jpg" alt="Inka suspension bridge in the mountains">
+              </a>
+            </div>
+            <div class="card-details-grid">
+              <div class="card-detail">
+                <h4>1. Early Ancient Civilizations</h4>
+                <p>In ancient times, humans built bridges using the natural materials available in their environment. These bridges were simple but essential for survival, trade, and travel.</p>
+                <div class="meta">
+                  <div class="meta-line"><span class="meta-label">Early Wooden / Log Bridges</span></div>
+                  <div class="meta-line"><span class="meta-label">Location:</span> Worldwide (Asia, Europe, Africa early settlements)</div>
+                  <div class="meta-line"><span class="meta-label">Period:</span> Prehistoric times (~3000 BCE and earlier)</div>
+                  <div class="meta-line"><span class="meta-label">Materials:</span> fallen trees, logs, timber planks</div>
+                  <div class="meta-line"><span class="meta-label">Purpose:</span> crossing small rivers and forests.</div>
+                </div>
+              </div>
+              <div class="card-detail">
+                <h4>Inca Rope Bridge (Q’eswachaka)</h4>
+                <p>Woven rope bridges supported movement across deep valleys and became an important part of the Inca road system.</p>
+                <div class="meta">
+                  <div class="meta-line"><span class="meta-label">Location:</span> Apurímac River, Canas Province, Cusco Region, Peru</div>
+                  <div class="meta-line"><span class="meta-label">Period:</span> Late Inca Civilization (~15th century AD, continued tradition preserved to present day)</div>
+                  <div class="meta-line"><span class="meta-label">Materials:</span> ichu grass (Andean straw), woven plant fibers, vines, and natural rope bindings</div>
+                  <div class="meta-line"><span class="meta-label">Purpose:</span> connected communities across deep Andean valleys for trade, travel, and communication</div>
+                  <div class="meta-line"><span class="meta-label">Extra info:</span> Rebuilt every year by local Quechua communities using traditional Inca techniques</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="timeline-dot" aria-hidden="true"></span>
+        </div>
+
+        <div class="timeline-item right">
+          <div class="timeline-card">
+            <div class="timeline-media single">
+              <a class="image-link" href="https://it.igotoworld.com/frontend/webcontent/websites/27/images/gallery/1935658_370x246_Screenshot_804.jpg" target="_blank" rel="noopener noreferrer">
+                <img class="timeline-photo" src="https://it.igotoworld.com/frontend/webcontent/websites/27/images/gallery/1935658_370x246_Screenshot_804.jpg" alt="Roman bridge over the Tiber River">
+              </a>
+            </div>
+            <div class="card-details-grid">
+              <div class="card-detail">
+                <h4>2. Roman Civilization</h4>
+                <p>The Romans enhanced bridge engineering by developing stone arch bridges, which allowed for stronger and longer-lasting structures that could support heavier loads. The Romans perfected arch design, distributing weight evenly, and created bridges that still stand today.</p>
+                <div class="meta">
+                  <div class="meta-line"><span class="meta-label">Location:</span> Rome, Italy. Tiber River, connecting Tiber Island to the eastern bank of ancient Rome</div>
+                  <div class="meta-line"><span class="meta-label">Period:</span> Built in 62 BC during the Roman Republic (still standing today, making it the oldest intact Roman stone bridge)</div>
+                  <div class="meta-line"><span class="meta-label">Materials:</span> Travertine stone, tuff (volcanic stone), and Roman masonry techniques (core-filled stone construction)</div>
+                  <div class="meta-line"><span class="meta-label">Purpose:</span> Pedestrian and local transport route, improving access between the city center and Tiber Island (important for commerce and movement in ancient Rome)</div>
+                </div>
+              </div>
+              <div class="card-detail">
+                <h4>Inca Rope Bridge (Q’eswachaka)</h4>
+                <p>Traditional rope bridge construction shows how communities preserved practical engineering methods through generations.</p>
+                <div class="meta">
+                  <div class="meta-line"><span class="meta-label">Location:</span> Peru and the Andes bridge tradition</div>
+                  <div class="meta-line"><span class="meta-label">Purpose:</span> Crossing deep valleys and supporting local travel and communication</div>
+                  <div class="meta-line"><span class="meta-label">Note:</span> Add your own details here if you want a second Roman-era comparison or a different bridge example.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="timeline-dot" aria-hidden="true"></span>
+        </div>
+
+        <div class="timeline-item left">
+          <div class="timeline-card">
+            <div class="timeline-media double">
+              <a class="image-link" href="https://www.historyofbridges.com/images/historyofbridges/iron-bridge-shropshire.jpg" target="_blank" rel="noopener noreferrer">
+                <img class="timeline-photo" src="https://www.historyofbridges.com/images/historyofbridges/iron-bridge-shropshire.jpg" alt="Iron bridge in Shropshire">
+              </a>
+              <a class="image-link" href="https://cdn.britannica.com/80/115080-050-46BE2B70/Brooklyn-Bridge-East-River-New-York-City.jpg?w=300" target="_blank" rel="noopener noreferrer">
+                <img class="timeline-photo" src="https://cdn.britannica.com/80/115080-050-46BE2B70/Brooklyn-Bridge-East-River-New-York-City.jpg?w=300" alt="Brooklyn Bridge over the East River">
+              </a>
+            </div>
+            <div class="card-details-grid">
+              <div class="card-detail">
+                <h4>3. Industrial Revolution</h4>
+                <p>During the Industrial Revolution, engineers began using iron and steel in bridges, allowing them to become stronger, longer, and capable of supporting trains and heavy traffic.</p>
+                <div class="meta">
+                  <div class="meta-line"><span class="meta-label">Location:</span> Ironbridge Gorge, Shropshire, England — crosses the River Severn</div>
+                  <div class="meta-line"><span class="meta-label">Period:</span> Built in 1779–1781, opened in 1781 (Industrial Revolution era)</div>
+                  <div class="meta-line"><span class="meta-label">Materials:</span> Cast iron (one of the first major structural uses of iron in bridge construction)</div>
+                  <div class="meta-line"><span class="meta-label">Purpose:</span> Transport route for goods, workers, and trade across the River Severn; supported growing industrial activities in the Ironbridge area</div>
+                  <div class="meta-line"><span class="meta-label">Extra info:</span> The iron bridge represented a significant advancement in engineering history, as it was the first large bridge made entirely of cast iron. This innovation proved that metal could replace stone and wood, marking a major leap in structural design.</div>
+                </div>
+              </div>
+              <div class="card-detail">
+                <h4>Brooklyn Bridge</h4>
+                <p>The Brooklyn Bridge showed that steel-wire suspension design could safely support long spans and heavy urban traffic.</p>
+                <div class="meta">
+                  <div class="meta-line"><span class="meta-label">Location:</span> New York City, USA — connects Manhattan and Brooklyn over the East River</div>
+                  <div class="meta-line"><span class="meta-label">Period:</span> Completed in 1883 (construction began in 1869)</div>
+                  <div class="meta-line"><span class="meta-label">Materials:</span> Steel-wire cables, limestone, granite, and stone masonry towers</div>
+                  <div class="meta-line"><span class="meta-label">Purpose:</span> Transportation link for pedestrians, horse-drawn vehicles (originally), and later modern traffic between Manhattan and Brooklyn</div>
+                  <div class="meta-line"><span class="meta-label">Extra info:</span> The Brooklyn Bridge is one of the first major steel-wire suspension bridges. It demonstrated that steel could safely support long spans and heavy urban traffic, becoming a model for modern bridge engineering around the world.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="timeline-dot" aria-hidden="true"></span>
+        </div>
+
+        <div class="timeline-item right">
+          <div class="timeline-card">
+            <div class="timeline-media single">
+              <a class="image-link" href="https://www.japan-experience.com/sites/default/files/images/content_images/akashibridge20191.jpg" target="_blank" rel="noopener noreferrer">
+                <img class="timeline-photo" src="https://www.japan-experience.com/sites/default/files/images/content_images/akashibridge20191.jpg" alt="Akashi Kaikyo Bridge in Japan">
+              </a>
+            </div>
+            <div class="card-details-grid modern-layout">
+              <div class="card-detail featured">
+                <h4>4. Modern Era</h4>
+                <p>Modern bridges use high-strength steel and reinforced concrete, along with computer-aided design (CAD), to construct longer and more complex structures.</p>
+                <div class="meta">
+                  <div class="meta-line"><span class="meta-label">Akashi Kaikyō Bridge</span></div>
+                  <div class="meta-line"><span class="meta-label">Location:</span> Kobe–Awaji Island, Hyōgo Prefecture, Japan — spans the Akashi Strait</div>
+                  <div class="meta-line"><span class="meta-label">Period:</span> Completed in 1998 (late 20th century, modern engineering era)</div>
+                  <div class="meta-line"><span class="meta-label">Materials:</span> high-strength steel cables, reinforced steel, steel truss structures</div>
+                  <div class="meta-line"><span class="meta-label">Purpose:</span> major highway connection for vehicles, linking Honshu and Awaji Island</div>
+                  <div class="meta-line"><span class="meta-label">Extra info:</span> This bridge showcases modern engineering excellence, employing advanced aerodynamics, seismic-resistant design, and precision construction to withstand strong earthquakes, high winds, and marine conditions.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="timeline-dot" aria-hidden="true"></span>
+        </div>
+      </div>
+
+    </section>
+    <section id="about"><h1>About</h1></section>
+    <section id="services" class="services-showcase">
+      <h1>Services</h1>
+      <div class="vertical-showcase" aria-label="Vertical slideshow section">
+        <div class="v-slide">
+          <a class="v-slide-image-link" href="https://learnodo-newtonic.com/wp-content/uploads/2015/09/Millau-Viaduct-Facts-Featured-1024x384.webp" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://learnodo-newtonic.com/wp-content/uploads/2015/09/Millau-Viaduct-Facts-Featured-1024x384.webp" alt="Slide image 1">
+          </a>
+          <p>Example paragraph for slide 1. Replace this with your own report text or description when ready.</p>
+        </div>
+        <div class="v-slide">
+          <a class="v-slide-image-link" href="https://res.cloudinary.com/aenetworks/image/upload/c_fill,ar_2,w_750,h_375,g_auto/dpr_auto/f_auto/q_auto:eco/v1/topic-golden-gate-bridge-gettyimages-177770941?_a=BAVMn6DY0" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://res.cloudinary.com/aenetworks/image/upload/c_fill,ar_2,w_750,h_375,g_auto/dpr_auto/f_auto/q_auto:eco/v1/topic-golden-gate-bridge-gettyimages-177770941?_a=BAVMn6DY0" alt="Slide image 2">
+          </a>
+          <p>Example paragraph for slide 2. This is temporary content that you can fully replace.</p>
+        </div>
+        <div class="v-slide">
+          <a class="v-slide-image-link" href="https://images.ctfassets.net/43cg184ejz07/5RoNqxFtNi0dDDTCGWk47L/4e795e40f9d8efed5f8d7c5ea704c05a/IMG_1586.png?fm=webp&w=1024&h=683&fit=fill" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://images.ctfassets.net/43cg184ejz07/5RoNqxFtNi0dDDTCGWk47L/4e795e40f9d8efed5f8d7c5ea704c05a/IMG_1586.png?fm=webp&w=1024&h=683&fit=fill" alt="Slide image 3">
+          </a>
+          <p>Example paragraph for slide 3. Use this area for details, notes, or visual reporting context.</p>
+        </div>
+        <div class="v-slide">
+          <a class="v-slide-image-link" href="https://www.historyofbridges.com/images/historyofbridges/rialto-bridge-ponte-di-rialto.jpg" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://www.historyofbridges.com/images/historyofbridges/rialto-bridge-ponte-di-rialto.jpg" alt="Slide image 4">
+          </a>
+          <p>Example paragraph for slide 4. Keep this as placeholder text until your final content is ready.</p>
+        </div>
+        <div class="v-slide">
+          <a class="v-slide-image-link" href="https://heatherwick.com/wp-content/uploads/heatherwick-Rolling-Bridge-8094.jpg" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://heatherwick.com/wp-content/uploads/heatherwick-Rolling-Bridge-8094.jpg" alt="Slide image 5">
+          </a>
+          <p>Example paragraph for slide 5. This temporary block is designed to match the overall spacing style.</p>
+        </div>
+        <div class="v-slide">
+          <a class="v-slide-image-link" href="https://imagedelivery.net/AqOYYty1zFQTgiffq2rkbg/india-living-root-bridge-double-decker-9f88010e7f/width=720,height=480,fit=cover" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://imagedelivery.net/AqOYYty1zFQTgiffq2rkbg/india-living-root-bridge-double-decker-9f88010e7f/width=720,height=480,fit=cover" alt="Slide image 6">
+          </a>
+          <p>Example paragraph for slide 6. Replace this text later with your own explanation or observations.</p>
+        </div>
+        <div class="v-slide">
+          <a class="v-slide-image-link" href="https://cebuchamber.org/assets/uploads/2023/12/CCLEX-Now-Day-Shot-1-Large-1-980x735.jpeg" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://cebuchamber.org/assets/uploads/2023/12/CCLEX-Now-Day-Shot-1-Large-1-980x735.jpeg" alt="Slide image 7">
+          </a>
+          <p>Example paragraph for slide 7. This sample keeps the same alignment and vertical rhythm.</p>
+        </div>
+        <div class="v-slide">
+          <a class="v-slide-image-link" href="https://static.tripzilla.ph/media/119706/conversions/san-juanico-bridge-w1024.webp" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://static.tripzilla.ph/media/119706/conversions/san-juanico-bridge-w1024.webp" alt="Slide image 8">
+          </a>
+          <p>Example paragraph for slide 8. Add your own content here once you finalize your section details.</p>
+        </div>
+        <div class="v-slide">
+          <a class="v-slide-image-link" href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Puente_Binondo%E2%80%93Intramuros%2C_Manila%2C_Filipinas%2C_2023-08-27%2C_DD_135-137_HDR.jpg/330px-Puente_Binondo%E2%80%93Intramuros%2C_Manila%2C_Filipinas%2C_2023-08-27%2C_DD_135-137_HDR.jpg" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Puente_Binondo%E2%80%93Intramuros%2C_Manila%2C_Filipinas%2C_2023-08-27%2C_DD_135-137_HDR.jpg/330px-Puente_Binondo%E2%80%93Intramuros%2C_Manila%2C_Filipinas%2C_2023-08-27%2C_DD_135-137_HDR.jpg" alt="Slide image 9">
+          </a>
+          <p>Example paragraph for slide 9. Final placeholder text for the vertical slideshow container.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer id="contact">
+    <h3>Contact Me</h3>
+    <div class="contact-links">
+      <a href="mailto:bobbymdubb17@gmail.com">Gmail: bobbymdubb17@gmail.com</a>
+      <a href="https://www.facebook.com/bobby.dubb.33" target="_blank" rel="noopener noreferrer">Facebook Profile</a>
+    </div>
+  </footer>
+
+  <script>
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const verticalSlides = document.querySelectorAll('.v-slide');
+
+    const timelineObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view');
+        }
+      });
+    }, {
+      threshold: 0.25,
+      rootMargin: '0px 0px -80px 0px'
+    });
+
+    timelineItems.forEach((item) => timelineObserver.observe(item));
+
+    const slideObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view');
+        }
+      });
+    }, {
+      threshold: 0.3,
+      rootMargin: '0px 0px -70px 0px'
+    });
+
+    verticalSlides.forEach((slide) => slideObserver.observe(slide));
+
+    function openDrawer() {
+      const drawer = document.getElementById("leftDrawer");
+      const overlay = document.getElementById("drawerOverlay");
+      drawer.classList.add("active");
+      overlay.classList.add("active");
+    }
+
+    function closeDrawer() {
+      const drawer = document.getElementById("leftDrawer");
+      const overlay = document.getElementById("drawerOverlay");
+      drawer.classList.remove("active");
+      overlay.classList.remove("active");
+    }
+
+    function toggleDrawer() {
+      const drawer = document.getElementById("leftDrawer");
+      if (drawer.classList.contains("active")) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
+    }
+  </script>
+
 </body>
 </html>

@@ -58,7 +58,7 @@
       background: linear-gradient(180deg, #1f1f1f 0%, #242424 52%, #1a1a1a 100%);
       border-right: 1px solid #3a3a3a;
       box-shadow: 16px 0 44px rgba(0, 0, 0, 0.38);
-      transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease, border-color 0.4s ease;
       z-index: 1100;
       padding: 18px 16px 24px;
       overflow-y: auto;
@@ -249,6 +249,14 @@
       padding: clamp(12px, 2.4vw, 24px);
     }
 
+    body, header, .intro-panel, .history-panel, .bridge-type-group,
+    .card-detail,
+    h1, h2, h3, h4, p, pre, li, .meta, .meta-label, .slide-label, .timeline-wrap::before, .timeline-dot, section {
+      transition-property: background-color, color, border-color, box-shadow, background;
+      transition-duration: 0.4s;
+      transition-timing-function: ease;
+    }
+
     .intro-panel {
       max-width: 1040px;
       margin: 0 auto 50px;
@@ -354,6 +362,8 @@
       word-break: break-word;
       text-align: justify;
       margin: 0;
+      font-family: inherit;
+      font-size: 16px;
     }
 
     .timeline-wrap {
@@ -411,7 +421,7 @@
       z-index: 1;
       align-items: stretch;
       opacity: 0;
-      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
       will-change: transform, opacity;
     }
 
@@ -568,19 +578,19 @@
 
     #home.timeline-section {
       min-height: calc(100vh - 70px);
-      padding-bottom: clamp(54px, 7vw, 110px);
+      padding-bottom: clamp(80px, 10vw, 160px);
     }
 
     #history.timeline-section {
-      padding-bottom: clamp(72px, 9vw, 140px);
+      padding-bottom: clamp(100px, 12vw, 200px);
     }
 
     .services-showcase {
       height: auto;
       min-height: auto;
       border-bottom: none;
-      padding-top: clamp(64px, 8vw, 132px);
-      padding-bottom: clamp(48px, 6.4vw, 94px);
+      padding-top: clamp(80px, 10vw, 150px);
+      padding-bottom: clamp(100px, 12vw, 180px);
     }
 
     .vertical-showcase {
@@ -592,7 +602,7 @@
 
     .bridge-type-group {
       max-width: 1180px;
-      margin: 0 auto 56px;
+      margin: 0 auto 100px;
       padding: 16px;
       background: #f8fafc;
       border: 1px solid #e5e7eb;
@@ -625,7 +635,7 @@
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
       opacity: 1;
       transform: none;
-      transition: none;
+      transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
       will-change: auto;
     }
 
@@ -788,7 +798,7 @@
       }
 
       .bridge-type-group {
-        margin-bottom: 44px;
+        margin-bottom: 74px;
         padding: 14px;
       }
 
@@ -827,14 +837,15 @@
 
       .intro-panel {
         padding: 14px;
-        margin-bottom: 30px;
+        margin-bottom: 50px;
       }
 
       .intro-panel h1 {
         font-size: 30px;
       }
 
-      .intro-panel h2 {
+      .intro-panel h2,
+      .history-panel h2 {
         font-size: 26px;
       }
 
@@ -844,7 +855,7 @@
 
       .timeline-wrap::before {
         left: 14px;
-        transform: none;
+        transform: translateX(-50%);
       }
 
       .timeline-item {
@@ -864,6 +875,7 @@
         left: 14px;
         width: 14px;
         height: 14px;
+        transform: translateX(-50%);
       }
 
       .timeline-card {
@@ -925,24 +937,28 @@
 
       .intro-panel {
         padding: 12px;
+        margin-bottom: 50px;
       }
 
       .intro-panel h1 {
         font-size: 28px;
       }
 
-      .intro-panel h2 {
+      .intro-panel h2,
+      .history-panel h2 {
         font-size: 24px;
       }
 
       .intro-panel p,
+      .history-panel p,
       .intro-panel pre {
         text-align: left;
+        font-size: 15px;
       }
 
       .timeline-wrap::before {
         left: 10px;
-        transform: none;
+        transform: translateX(-50%);
       }
 
       .timeline-item {
@@ -962,6 +978,7 @@
         left: 10px;
         width: 12px;
         height: 12px;
+        transform: translateX(-50%);
       }
 
       .timeline-card {
@@ -983,8 +1000,8 @@
         gap: 12px;
       }
 
-      .timeline-card h3 {
-        font-size: 20px;
+      .timeline-card h4 {
+        font-size: 19px;
       }
 
       .card-detail {
@@ -1001,7 +1018,8 @@
       }
 
       .services-showcase {
-        padding-top: 28px;
+        padding-top: 48px;
+        padding-bottom: 64px;
       }
 
       .vertical-showcase {
@@ -1010,7 +1028,7 @@
 
       .bridge-type-group {
         padding: 12px;
-        margin-bottom: 36px;
+        margin-bottom: 64px;
       }
 
       .bridge-type-group h2 {
@@ -1087,6 +1105,111 @@
         margin-bottom: 10px;
       }
     }
+
+    /* Dark Mode Defaults & Layout */
+    .theme-toggle-btn {
+      background: #444;
+      color: #fff;
+      border: 1px solid #555;
+      border-radius: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .theme-toggle-btn:hover {
+      background: #555;
+    }
+
+    @media (max-width: 900px) {
+      .desktop-toggle {
+        display: none !important;
+      }
+    }
+
+    @media (min-width: 901px) {
+      .mobile-toggle {
+        display: none !important;
+      }
+    }
+
+    /* Dark Mode Theme */
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode header {
+      background: #1a1a1a;
+      border-bottom: 1px solid #333;
+    }
+
+    body.dark-mode .left-drawer {
+      background: #1e1e1e;
+      border-right: 1px solid #333;
+    }
+
+    body.dark-mode .intro-panel,
+    body.dark-mode .history-panel,
+    body.dark-mode .timeline-card,
+    body.dark-mode .v-slide,
+    body.dark-mode .bridge-type-group {
+      background: #1e1e1e;
+      border-color: #333;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.5);
+    }
+    
+    body.dark-mode .bridge-type-group {
+      background: #161616;
+    }
+
+    body.dark-mode .card-detail {
+      background: #161616;
+      border-color: #333;
+    }
+
+    body.dark-mode .intro-panel h1,
+    body.dark-mode .intro-panel h2,
+    body.dark-mode .history-panel h2,
+    body.dark-mode .timeline-card h3,
+    body.dark-mode .bridge-type-group h2,
+    body.dark-mode .v-slide h3 {
+      color: #ffffff;
+    }
+
+    body.dark-mode .timeline-card h4,
+    body.dark-mode .meta {
+      color: #aaaaaa;
+    }
+
+    body.dark-mode p,
+    body.dark-mode pre,
+    body.dark-mode li {
+      color: #cccccc !important;
+    }
+
+    body.dark-mode b,
+    body.dark-mode strong,
+    body.dark-mode .meta-label,
+    body.dark-mode .slide-label {
+      color: #ffffff;
+    }
+
+    body.dark-mode .timeline-wrap::before {
+      background: linear-gradient(180deg, #121212 0%, #555 10%, #555 90%, #121212 100%);
+    }
+
+    body.dark-mode .timeline-dot {
+      background: #333;
+      border-color: #121212;
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+    }
+
+    body.dark-mode section {
+      border-bottom-color: #333;
+    }
+
   </style>
 </head>
 <body>
@@ -1096,21 +1219,27 @@
       <button class="menu-btn" onclick="toggleDrawer()" aria-label="Open menu">☰</button>
       <div class="title">BridgeVerse</div>
     </div>
-    <nav class="header-nav">
-      <a href="#home">Home</a>
-      <a href="#history">History</a>
-      <a href="#about">Types</a>
-      <a href="#services">Examples</a>
-      <a href="#failures">Failures</a>
-      <a href="#contact">Sources</a>
-    </nav>
+    <div style="display: flex; align-items: center; gap: 15px;">
+      <nav class="header-nav">
+        <a href="#home">Home</a>
+        <a href="#history">History</a>
+        <a href="#about">Types</a>
+        <a href="#services">Examples</a>
+        <a href="#failures">Failures</a>
+        <a href="#contact">Sources</a>
+      </nav>
+      <button id="themeTogglePC" class="theme-toggle-btn desktop-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">🌙 Mode</button>
+    </div>
   </header>
 
   <div id="drawerOverlay" class="drawer-overlay" onclick="closeDrawer()"></div>
   <div id="leftDrawer" class="left-drawer">
     <button class="drawer-close-btn" onclick="closeDrawer()" aria-label="Close menu">x</button>
     <section class="drawer-nav" aria-label="Navigation links">
-      <h3>Menu</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="margin-bottom: 0;">Menu</h3>
+        <button id="themeToggleMobile" class="theme-toggle-btn mobile-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">🌙 Mode</button>
+      </div>
       <div class="drawer-nav-links">
         <a href="#home" onclick="closeDrawer()">Home</a>
         <a href="#history" onclick="closeDrawer()">History</a>
@@ -1630,6 +1759,24 @@
       } else {
         openDrawer();
       }
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      updateThemeIcons(isDark);
+    }
+
+    function updateThemeIcons(isDark) {
+      const icon = isDark ? '☀️ Mode' : '🌙 Mode';
+      document.getElementById('themeTogglePC').innerText = icon;
+      document.getElementById('themeToggleMobile').innerText = icon;
+    }
+
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      document.body.classList.add('dark-mode');
+      updateThemeIcons(true);
     }
   </script>
 

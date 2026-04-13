@@ -52,39 +52,124 @@
     .left-drawer {
       position: fixed;
       top: 0;
-      left: -300px;
-      width: 300px;
+      left: -100%;
+      width: min(340px, 86vw);
       height: 100vh;
-      background: #1f1f1f;
-      border-right: 1px solid #333;
-      transition: left 0.3s ease;
+      background: linear-gradient(180deg, #1f1f1f 0%, #242424 52%, #1a1a1a 100%);
+      border-right: 1px solid #3a3a3a;
+      box-shadow: 16px 0 44px rgba(0, 0, 0, 0.38);
+      transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
       z-index: 1100;
-      padding: 20px;
+      padding: 18px 16px 24px;
+      overflow-y: auto;
+      backdrop-filter: blur(4px);
     }
 
     .left-drawer.active {
       left: 0;
     }
 
+    .left-drawer::before {
+      content: "";
+      display: block;
+      width: 74px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #9ca3af, #e5e7eb);
+      margin-bottom: 14px;
+    }
+
     .drawer-close-btn {
-      font-size: 20px;
+      font-size: 18px;
+      line-height: 1;
       cursor: pointer;
-      border: 1px solid #555;
-      border-radius: 6px;
-      padding: 2px 10px;
-      background: transparent;
-      color: #fff;
-      margin-bottom: 12px;
+      border: 1px solid #5b5b5b;
+      border-radius: 999px;
+      padding: 6px 11px;
+      background: rgba(34, 34, 34, 0.75);
+      color: #f8fafc;
+      margin-bottom: 14px;
+      float: right;
     }
 
     .drawer-close-btn:hover {
-      background: #444;
+      background: #3a3a3a;
+    }
+
+    .drawer-contact {
+      margin-top: 6px;
+      color: #e5e7eb;
+      background: rgba(31, 31, 31, 0.85);
+      border: 1px solid #454545;
+      border-radius: 14px;
+      padding: 14px;
+      clear: both;
+    }
+
+    .drawer-contact h3 {
+      font-size: 17px;
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+      color: #f8fafc;
+    }
+
+    .drawer-contact p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+    }
+
+    .drawer-contact .contact-links {
+      display: grid;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .drawer-contact .contact-links a {
+      width: 100%;
+      text-align: left;
+      background: rgba(38, 38, 38, 0.95);
+      border: 1px solid #5a5a5a;
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: #f1f1f1;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .drawer-contact .contact-links a:hover {
+      background: #3d3d3d;
+      border-color: #7a7a7a;
+      transform: translateX(2px);
+    }
+
+    .credits-list {
+      margin-left: 18px;
+      display: grid;
+      gap: 7px;
+      padding-bottom: 10px;
+    }
+
+    .credits-list li {
+      color: #dbe3ee;
+      line-height: 1.45;
+      font-size: 12px;
+    }
+
+    .credits-list a {
+      color: #93c5fd;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+
+    .credits-list a:hover {
+      color: #bfdbfe;
     }
 
     .drawer-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(0, 0, 0, 0.42);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease;
@@ -133,8 +218,24 @@
       width: 100%;
     }
 
+    .history-panel {
+      max-width: 1280px;
+      margin: 0 auto 50px;
+      padding: 28px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 22px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+      width: 100%;
+    }
+
     .intro-panel h1,
     .intro-panel h2 {
+      color: #111827;
+      line-height: 1.2;
+    }
+
+    .history-panel h2 {
       color: #111827;
       line-height: 1.2;
     }
@@ -147,6 +248,12 @@
 
     .intro-panel h2 {
       margin-top: 22px;
+      margin-bottom: 14px;
+      font-size: 30px;
+      letter-spacing: 0.08em;
+    }
+
+    .history-panel h2 {
       margin-bottom: 14px;
       font-size: 30px;
       letter-spacing: 0.08em;
@@ -181,6 +288,16 @@
       color: #374151;
       width: 100%;
       max-width: 100%;
+    }
+
+    .history-panel p {
+      line-height: 1.7;
+      color: #374151;
+      width: 100%;
+      max-width: 100%;
+      text-align: justify;
+      text-justify: inter-word;
+      margin-bottom: 0;
     }
 
     .intro-panel p {
@@ -391,19 +508,36 @@
       scroll-margin-top: 90px;
     }
 
+    .content > section {
+      margin-bottom: clamp(28px, 4.6vw, 64px);
+    }
+
+    .content > section:last-child {
+      margin-bottom: 0;
+    }
+
     .timeline-section {
       height: auto;
       min-height: auto;
       border-bottom: none;
-      padding-bottom: 0;
+      padding-bottom: clamp(18px, 2.5vw, 38px);
+    }
+
+    #home.timeline-section {
+      min-height: calc(100vh - 70px);
+      padding-bottom: clamp(54px, 7vw, 110px);
+    }
+
+    #history.timeline-section {
+      padding-bottom: clamp(72px, 9vw, 140px);
     }
 
     .services-showcase {
       height: auto;
       min-height: auto;
       border-bottom: none;
-      padding-top: 30px;
-      padding-bottom: 50px;
+      padding-top: clamp(64px, 8vw, 132px);
+      padding-bottom: clamp(48px, 6.4vw, 94px);
     }
 
     .vertical-showcase {
@@ -455,6 +589,15 @@
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
     }
 
+    .v-slide-title {
+      display: block;
+      margin-bottom: 12px;
+      color: #111827;
+      font-size: 20px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
     .v-slide p {
       margin-top: 16px;
       font-size: 18px;
@@ -463,11 +606,80 @@
       text-align: left;
     }
 
+    .slide-label {
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .slide-source {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: #64748b;
+    }
+
+    .slide-source a {
+      color: #2563eb;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+
+    .slide-source a:hover {
+      color: #1d4ed8;
+    }
+
     footer {
-      background: #222;
+      background: linear-gradient(180deg, #1b1b1b 0%, #111827 100%);
       color: #fff;
+      padding: 32px 20px;
+      scroll-margin-top: 110px;
+    }
+
+    .footer-credits {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
       padding: 20px;
-      text-align: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+    }
+
+    .footer-credits h3 {
+      margin-bottom: 8px;
+      font-size: 22px;
+      letter-spacing: 0.03em;
+      color: #f8fafc;
+    }
+
+    .footer-credits p {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .footer-credits .credits-list {
+      margin-left: 20px;
+      gap: 10px 24px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-credits .credits-list li {
+      color: #e2e8f0;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .footer-credits .credits-list a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    .footer-credits .credits-list a:hover {
+      color: #dbeafe;
+      text-decoration: underline;
     }
 
     .contact-links {
@@ -593,6 +805,10 @@
       .v-slide-image {
         height: clamp(220px, 42vw, 420px);
       }
+
+      .footer-credits .credits-list {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 600px) {
@@ -694,7 +910,7 @@
       }
 
       .services-showcase {
-        padding-top: 18px;
+        padding-top: 28px;
       }
 
       .vertical-showcase {
@@ -717,6 +933,27 @@
 
       .v-slide-image {
         height: clamp(180px, 52vw, 260px);
+      }
+
+      footer {
+        padding: 24px 12px;
+      }
+
+      .footer-credits {
+        padding: 14px;
+      }
+
+      .footer-credits h3 {
+        font-size: 20px;
+      }
+
+      .footer-credits .credits-list {
+        margin-left: 16px;
+        gap: 8px;
+      }
+
+      .footer-credits .credits-list li {
+        font-size: 12px;
       }
     }
 
@@ -749,21 +986,30 @@
     </div>
     <nav class="header-nav">
       <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
+      <a href="#history">History</a>
+      <a href="#about">Types</a>
+      <a href="#services">Examples</a>
+      <a href="#contact">Sources</a>
     </nav>
   </header>
 
   <div id="drawerOverlay" class="drawer-overlay" onclick="closeDrawer()"></div>
   <div id="leftDrawer" class="left-drawer">
     <button class="drawer-close-btn" onclick="closeDrawer()" aria-label="Close menu">x</button>
+    <section class="drawer-contact" aria-label="Contact information">
+      <h3>Contact Me</h3>
+      <p>Reach out through the links below:</p>
+      <div class="contact-links">
+        <a href="mailto:bobbymdubb17@gmail.com">Gmail: bobbymdubb17@gmail.com</a>
+        <a href="https://www.facebook.com/bobby.dubb.33" target="_blank" rel="noopener noreferrer">Facebook Profile</a>
+      </div>
+    </section>
   </div>
 
   <div class="content">
     <section id="home" class="timeline-section">
       <div class="intro-panel">
-        <h1>Home</h1>
+        <h1>Bridge Engineering</h1>
         <a class="image-link" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Save_me_san_francisco2.jpg/960px-Save_me_san_francisco2.jpg?_=20121225155228" target="_blank" rel="noopener noreferrer">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Save_me_san_francisco2.jpg/960px-Save_me_san_francisco2.jpg?_=20121225155228" alt="">
         </a>
@@ -771,7 +1017,13 @@
         <pre>
             Bridge engineering is a specialized field of civil engineering that focuses on the construction, design, and maintenance of bridges. These structures serve as a link between places that are separated by either natural or man-made barriers such as highways, rivers, and even valleys. Bridges play an important role in transportation, as they help reduce travel time and facilitate the smooth movement of goods, services, and people. Engineers always take into careful consideration several key factors, such as load capacity, materials, environmental conditions, and long-term durability, to ensure the bridge remains safe and standing for an extended period.
         </pre>
+      </div>
 
+      </section>
+
+      <section id="history" class="timeline-section">
+
+      <div class="history-panel">
         <h2>HISTORY</h2>
         <p>The Development of Bridge Engineering:
             ​
@@ -913,76 +1165,194 @@
           <span class="timeline-dot" aria-hidden="true"></span>
         </div>
       </div>
-
     </section>
-    <section id="about"><h1>About</h1></section>
+
+    <section id="about" class="services-showcase">
+      <div class="intro-panel">
+        <h1>Types of Bridges</h1>
+        <h2>Introduction to Bridge Types</h2>
+        <p>Bridges are designed in various forms based on the distance they need to span, the materials available, and the environmental conditions of the location. Each type of bridge employs a unique structural design to distribute weight and maintain stability. Understanding these different types allows engineers to select the most appropriate design for a specific purpose, ensuring safety, efficiency, and durability.</p>
+      </div>
+
+      <div class="vertical-showcase" aria-label="Types of bridges showcase">
+        <div class="v-slide">
+          <h3 class="v-slide-title">Lake Pontchartrain Causeway</h3>
+          <a class="v-slide-image-link" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnRqWCMRnoSbBPhJVD3uXP1yrzN3cBkBgON6Sxkdlx3mSrJw" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnRqWCMRnoSbBPhJVD3uXP1yrzN3cBkBgON6Sxkdlx3mSrJw" alt="Lake Pontchartrain Causeway">
+          </a>
+          <p><span class="slide-label">Bridge Type Group:</span> Beam Bridges.<br><span class="slide-label">Location:</span> Louisiana, USA.<br><span class="slide-label">Type:</span> Beam Bridge.<br><span class="slide-label">Materials:</span> Prestressed concrete.<br><span class="slide-label">Importance:</span> One of the longest beam bridges in the world, essential for daily travel across the lake.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnRqWCMRnoSbBPhJVD3uXP1yrzN3cBkBgON6Sxkdlx3mSrJw" target="_blank" rel="noopener noreferrer">https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnRqWCMRnoSbBPhJVD3uXP1yrzN3cBkBgON6Sxkdlx3mSrJw</a></span></p>
+        </div>
+
+        <div class="v-slide">
+          <h3 class="v-slide-title">Manila Skyway Stage 3</h3>
+          <a class="v-slide-image-link" href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTdP7EkBIy3BenRRPju7hYPzrGVjVPrYMyBVHVtcczsKJ__Dw" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTdP7EkBIy3BenRRPju7hYPzrGVjVPrYMyBVHVtcczsKJ__Dw" alt="Manila Skyway Stage 3">
+          </a>
+          <p><span class="slide-label">Bridge Type Group:</span> Beam Bridges.<br><span class="slide-label">Location:</span> Metro Manila, Philippines.<br><span class="slide-label">Type:</span> Elevated Beam Bridge.<br><span class="slide-label">Materials:</span> Reinforced concrete and steel.<br><span class="slide-label">Importance:</span> A modern expressway (completed 2021) that reduces traffic congestion in Metro Manila.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTdP7EkBIy3BenRRPju7hYPzrGVjVPrYMyBVHVtcczsKJ__Dw" target="_blank" rel="noopener noreferrer">https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTdP7EkBIy3BenRRPju7hYPzrGVjVPrYMyBVHVtcczsKJ__Dw</a></span></p>
+        </div>
+
+        <div class="v-slide">
+          <h3 class="v-slide-title">Pont du Gard</h3>
+          <a class="v-slide-image-link" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSby_j5Qa3Fejadqvcd6IZqPi7rx8JgH983rIP_ywrs7Un_DA" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSby_j5Qa3Fejadqvcd6IZqPi7rx8JgH983rIP_ywrs7Un_DA" alt="Pont du Gard">
+          </a>
+          <p><span class="slide-label">Bridge Type Group:</span> Arch Bridges.<br><span class="slide-label">Location:</span> France.<br><span class="slide-label">Type:</span> Arch Bridge.<br><span class="slide-label">Materials:</span> Stone.<br><span class="slide-label">Importance:</span> Over 2,000 years old, shows the durability of Roman engineering.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSby_j5Qa3Fejadqvcd6IZqPi7rx8JgH983rIP_ywrs7Un_DA" target="_blank" rel="noopener noreferrer">https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSby_j5Qa3Fejadqvcd6IZqPi7rx8JgH983rIP_ywrs7Un_DA</a></span></p>
+        </div>
+
+        <div class="v-slide">
+          <h3 class="v-slide-title">Lupu Bridge</h3>
+          <a class="v-slide-image-link" href="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTx6VrZTMAW7kIPLgams3MsPuD7bDGIHD5CcmGi_SffIAsQXQ" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTx6VrZTMAW7kIPLgams3MsPuD7bDGIHD5CcmGi_SffIAsQXQ" alt="Lupu Bridge">
+          </a>
+          <p><span class="slide-label">Bridge Type Group:</span> Arch Bridges.<br><span class="slide-label">Location:</span> Shanghai, China.<br><span class="slide-label">Type:</span> Steel Arch Bridge.<br><span class="slide-label">Materials:</span> Steel.<br><span class="slide-label">Importance:</span> One of the longest steel arch bridges (modern), supports heavy urban traffic.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTx6VrZTMAW7kIPLgams3MsPuD7bDGIHD5CcmGi_SffIAsQXQ" target="_blank" rel="noopener noreferrer">https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTx6VrZTMAW7kIPLgams3MsPuD7bDGIHD5CcmGi_SffIAsQXQ</a></span></p>
+        </div>
+
+        <div class="v-slide">
+          <h3 class="v-slide-title">Golden Gate Bridge</h3>
+          <a class="v-slide-image-link" href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRGWiolPaHCCS8okCX0DoeG5PoYW62cQK5gwr3XXD9nc-m3jg" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRGWiolPaHCCS8okCX0DoeG5PoYW62cQK5gwr3XXD9nc-m3jg" alt="Golden Gate Bridge">
+          </a>
+          <p><span class="slide-label">Bridge Type Group:</span> Suspension Bridges.<br><span class="slide-label">Location:</span> San Francisco, USA.<br><span class="slide-label">Type:</span> Suspension Bridge.<br><span class="slide-label">Materials:</span> Steel.<br><span class="slide-label">Importance:</span> Iconic global landmark, connects major regions.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRGWiolPaHCCS8okCX0DoeG5PoYW62cQK5gwr3XXD9nc-m3jg" target="_blank" rel="noopener noreferrer">https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRGWiolPaHCCS8okCX0DoeG5PoYW62cQK5gwr3XXD9nc-m3jg</a></span></p>
+        </div>
+
+        <div class="v-slide">
+          <h3 class="v-slide-title">1915 Canakkale Bridge</h3>
+          <a class="v-slide-image-link" href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQiPycyDmqChDxdwohZejPDBkcpRlpBRS2qFFBtJxFED2T4ow" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQiPycyDmqChDxdwohZejPDBkcpRlpBRS2qFFBtJxFED2T4ow" alt="1915 Canakkale Bridge">
+          </a>
+          <p><span class="slide-label">Bridge Type Group:</span> Suspension Bridges.<br><span class="slide-label">Location:</span> Turkey.<br><span class="slide-label">Type:</span> Suspension Bridge.<br><span class="slide-label">Materials:</span> Steel cables and towers.<br><span class="slide-label">Importance:</span> Opened in 2022, one of the longest suspension bridges in the world.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQiPycyDmqChDxdwohZejPDBkcpRlpBRS2qFFBtJxFED2T4ow" target="_blank" rel="noopener noreferrer">https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQiPycyDmqChDxdwohZejPDBkcpRlpBRS2qFFBtJxFED2T4ow</a></span></p>
+        </div>
+
+        <div class="v-slide">
+          <h3 class="v-slide-title">Cebu-Cordova Link Expressway</h3>
+          <a class="v-slide-image-link" href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQlmmo5ZY5OHZZa1qwKS9FzlhCcz2hTcgRMOpqTgA0UyRRPTQ" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQlmmo5ZY5OHZZa1qwKS9FzlhCcz2hTcgRMOpqTgA0UyRRPTQ" alt="Cebu-Cordova Link Expressway">
+          </a>
+          <p><span class="slide-label">Bridge Type Group:</span> Cable-Stayed Bridges.<br><span class="slide-label">Location:</span> Cebu, Philippines.<br><span class="slide-label">Type:</span> Cable-Stayed Bridge.<br><span class="slide-label">Materials:</span> Steel and concrete.<br><span class="slide-label">Importance:</span> Longest bridge in the Philippines (2022), boosts regional economy.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQlmmo5ZY5OHZZa1qwKS9FzlhCcz2hTcgRMOpqTgA0UyRRPTQ" target="_blank" rel="noopener noreferrer">https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQlmmo5ZY5OHZZa1qwKS9FzlhCcz2hTcgRMOpqTgA0UyRRPTQ</a></span></p>
+        </div>
+
+        <div class="v-slide">
+          <h3 class="v-slide-title">Millau Viaduct</h3>
+          <a class="v-slide-image-link" href="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTXAT-QBeXSSiCmjbRL486NTSdh0QVClvoGebzu9ag6LlWt0A" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTXAT-QBeXSSiCmjbRL486NTSdh0QVClvoGebzu9ag6LlWt0A" alt="Millau Viaduct">
+          </a>
+          <p><span class="slide-label">Bridge Type Group:</span> Cable-Stayed Bridges.<br><span class="slide-label">Location:</span> France.<br><span class="slide-label">Type:</span> Cable-Stayed Bridge.<br><span class="slide-label">Materials:</span> Steel and concrete.<br><span class="slide-label">Importance:</span> One of the tallest bridges in the world, a major modern engineering achievement.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTXAT-QBeXSSiCmjbRL486NTSdh0QVClvoGebzu9ag6LlWt0A" target="_blank" rel="noopener noreferrer">https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTXAT-QBeXSSiCmjbRL486NTSdh0QVClvoGebzu9ag6LlWt0A</a></span></p>
+        </div>
+
+        <div class="v-slide">
+          <h3 class="v-slide-title">Howrah Bridge</h3>
+          <a class="v-slide-image-link" href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ3erX2CKkPw6Fb5AVPr5TkdPFbxpQNIbKbnuLEPPU_MJxtXg" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ3erX2CKkPw6Fb5AVPr5TkdPFbxpQNIbKbnuLEPPU_MJxtXg" alt="Howrah Bridge">
+          </a>
+          <p><span class="slide-label">Bridge Type Group:</span> Truss Bridges.<br><span class="slide-label">Location:</span> Kolkata, India.<br><span class="slide-label">Type:</span> Truss Bridge.<br><span class="slide-label">Materials:</span> Steel.<br><span class="slide-label">Importance:</span> Handles massive daily traffic, a vital transport link.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ3erX2CKkPw6Fb5AVPr5TkdPFbxpQNIbKbnuLEPPU_MJxtXg" target="_blank" rel="noopener noreferrer">https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ3erX2CKkPw6Fb5AVPr5TkdPFbxpQNIbKbnuLEPPU_MJxtXg</a></span></p>
+        </div>
+
+        <div class="v-slide">
+          <h3 class="v-slide-title">Ikitsuki Bridge</h3>
+          <a class="v-slide-image-link" href="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRNN-fqqUso9Jm1Mj7FwLA3fDdRplSJz5qWQ2tzvAW7COtDhg" target="_blank" rel="noopener noreferrer">
+            <img class="v-slide-image" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRNN-fqqUso9Jm1Mj7FwLA3fDdRplSJz5qWQ2tzvAW7COtDhg" alt="Ikitsuki Bridge">
+          </a>
+          <p><span class="slide-label">Bridge Type Group:</span> Truss Bridges.<br><span class="slide-label">Location:</span> Japan.<br><span class="slide-label">Type:</span> Continuous Truss Bridge.<br><span class="slide-label">Materials:</span> Steel.<br><span class="slide-label">Importance:</span> A modern long-span truss bridge that shows the continued relevance of truss design.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRNN-fqqUso9Jm1Mj7FwLA3fDdRplSJz5qWQ2tzvAW7COtDhg" target="_blank" rel="noopener noreferrer">https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRNN-fqqUso9Jm1Mj7FwLA3fDdRplSJz5qWQ2tzvAW7COtDhg</a></span></p>
+        </div>
+      </div>
+    </section>
     <section id="services" class="services-showcase">
-      <h1>Services</h1>
+      <div class="intro-panel">
+        <h1>Examples of Bridges</h1>
+        <p>Bridges are more than just structures that connect places, they are a symbol of the human testament to innovation, creativity, and the drive for progress. Across different periods and to various regions, bridges have evolved in design, materials, and even purpose. From ancient stone arches to modern engineering marvels, each bridge tells a story of how people have overcome natural barriers and accomplished a goal, pushing the limits of construction. This part of the page explores the marvels of bridges through its examples, highlighting their uniqueness and significance.</p>
+      </div>
       <div class="vertical-showcase" aria-label="Vertical slideshow section">
         <div class="v-slide">
+          <h3 class="v-slide-title">Millau Viaduct</h3>
           <a class="v-slide-image-link" href="https://learnodo-newtonic.com/wp-content/uploads/2015/09/Millau-Viaduct-Facts-Featured-1024x384.webp" target="_blank" rel="noopener noreferrer">
             <img class="v-slide-image" src="https://learnodo-newtonic.com/wp-content/uploads/2015/09/Millau-Viaduct-Facts-Featured-1024x384.webp" alt="Slide image 1">
           </a>
-          <p>Example paragraph for slide 1. Replace this with your own report text or description when ready.</p>
+          <p><span class="slide-label">Location:</span> Millau–Creissels, Aveyron, France.<br><span class="slide-label">Year Completed:</span> 2004.<br><span class="slide-label">Materials:</span> Steel, reinforced concrete.<br><span class="slide-label">Type:</span> Cable-stayed bridge.<br><span class="slide-label">Purpose:</span> Highway transportation.<br><span class="slide-label">Details:</span> It is one of the tallest bridges in the world and is known for its elegant design and engineering efficiency.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://learnodo-newtonic.com/millau-viaduct-facts" target="_blank" rel="noopener noreferrer">https://learnodo-newtonic.com/wp-content/uploads/2015/09/Millau-Viaduct-Facts-Featured-1024x384.webp</a></span></p>
         </div>
         <div class="v-slide">
+          <h3 class="v-slide-title">Golden Gate Bridge</h3>
           <a class="v-slide-image-link" href="https://res.cloudinary.com/aenetworks/image/upload/c_fill,ar_2,w_750,h_375,g_auto/dpr_auto/f_auto/q_auto:eco/v1/topic-golden-gate-bridge-gettyimages-177770941?_a=BAVMn6DY0" target="_blank" rel="noopener noreferrer">
             <img class="v-slide-image" src="https://res.cloudinary.com/aenetworks/image/upload/c_fill,ar_2,w_750,h_375,g_auto/dpr_auto/f_auto/q_auto:eco/v1/topic-golden-gate-bridge-gettyimages-177770941?_a=BAVMn6DY0" alt="Slide image 2">
           </a>
-          <p>Example paragraph for slide 2. This is temporary content that you can fully replace.</p>
+          <p><span class="slide-label">Location:</span> San Francisco, California, USA.<br><span class="slide-label">Year Completed:</span> 1937.<br><span class="slide-label">Materials:</span> Steel, concrete.<br><span class="slide-label">Type:</span> Suspension bridge.<br><span class="slide-label">Purpose:</span> Major highway connection.<br><span class="slide-label">Details:</span> It is one of the most recognizable bridges in the world, known for its iconic design and distinctive orange color.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://www.history.com/articles/golden-gate-bridge" target="_blank" rel="noopener noreferrer">https://res.cloudinary.com/aenetworks/image/upload/c_fill,ar_2,w_750,h_375,g_auto/dpr_auto/f_auto/q_auto:eco/v1/topic-golden-gate-bridge-gettyimages-177770941?_a=BAVMn6DY0</a></span></p>
         </div>
         <div class="v-slide">
+          <h3 class="v-slide-title">Pont du Gard</h3>
           <a class="v-slide-image-link" href="https://images.ctfassets.net/43cg184ejz07/5RoNqxFtNi0dDDTCGWk47L/4e795e40f9d8efed5f8d7c5ea704c05a/IMG_1586.png?fm=webp&w=1024&h=683&fit=fill" target="_blank" rel="noopener noreferrer">
             <img class="v-slide-image" src="https://images.ctfassets.net/43cg184ejz07/5RoNqxFtNi0dDDTCGWk47L/4e795e40f9d8efed5f8d7c5ea704c05a/IMG_1586.png?fm=webp&w=1024&h=683&fit=fill" alt="Slide image 3">
           </a>
-          <p>Example paragraph for slide 3. Use this area for details, notes, or visual reporting context.</p>
+          <p><span class="slide-label">Location:</span> Vers-Pont-du-Gard, France.<br><span class="slide-label">Period:</span> 1st century AD.<br><span class="slide-label">Materials:</span> Limestone.<br><span class="slide-label">Type:</span> Arch bridge / aqueduct.<br><span class="slide-label">Purpose:</span> Transported water across the Gardon River.<br><span class="slide-label">Details:</span> It is one of the best-preserved Roman structures and demonstrates the durability of ancient engineering techniques.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://www.purefrance.com/en/blog/lets-discover-the-pont-du-gard-ancient-jewel" target="_blank" rel="noopener noreferrer">https://images.ctfassets.net/43cg184ejz07/5RoNqxFtNi0dDDTCGWk47L/4e795e40f9d8efed5f8d7c5ea704c05a/IMG_1586.png?fm=webp&w=1024&h=683&fit=fill</a></span></p>
         </div>
         <div class="v-slide">
+          <h3 class="v-slide-title">Rialto Bridge</h3>
           <a class="v-slide-image-link" href="https://www.historyofbridges.com/images/historyofbridges/rialto-bridge-ponte-di-rialto.jpg" target="_blank" rel="noopener noreferrer">
             <img class="v-slide-image" src="https://www.historyofbridges.com/images/historyofbridges/rialto-bridge-ponte-di-rialto.jpg" alt="Slide image 4">
           </a>
-          <p>Example paragraph for slide 4. Keep this as placeholder text until your final content is ready.</p>
+          <p><span class="slide-label">Location:</span> Venice, Italy.<br><span class="slide-label">Year Completed:</span> 1591.<br><span class="slide-label">Materials:</span> Stone (Istrian limestone).<br><span class="slide-label">Type:</span> Stone arch bridge.<br><span class="slide-label">Purpose:</span> Pedestrian crossing and commercial access.<br><span class="slide-label">Details:</span> The Rialto Bridge is one of the oldest and most famous bridges in Venice, symbolizing the city’s historical importance in trade and architecture.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://www.historyofbridges.com/famous-bridges/rialto-bridge/" target="_blank" rel="noopener noreferrer">https://www.historyofbridges.com/images/historyofbridges/rialto-bridge-ponte-di-rialto.jpg</a></span></p>
         </div>
         <div class="v-slide">
+          <h3 class="v-slide-title">Rolling Bridge</h3>
           <a class="v-slide-image-link" href="https://heatherwick.com/wp-content/uploads/heatherwick-Rolling-Bridge-8094.jpg" target="_blank" rel="noopener noreferrer">
             <img class="v-slide-image" src="https://heatherwick.com/wp-content/uploads/heatherwick-Rolling-Bridge-8094.jpg" alt="Slide image 5">
           </a>
-          <p>Example paragraph for slide 5. This temporary block is designed to match the overall spacing style.</p>
+          <p><span class="slide-label">Location:</span> London, United Kingdom.<br><span class="slide-label">Year Completed:</span> 2004.<br><span class="slide-label">Materials:</span> Steel.<br><span class="slide-label">Type:</span> Movable bridge.<br><span class="slide-label">Purpose:</span> Pedestrian crossing that opens for boats.<br><span class="slide-label">Details:</span> Its unique rolling motion makes it one of the most creative and visually interesting bridge designs in the world.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://heatherwick.com/project/rolling-bridge/">https://heatherwick.com/wp-content/uploads/heatherwick-Rolling-Bridge-8094.jpg</a></span></p>
         </div>
         <div class="v-slide">
+          <h3 class="v-slide-title">Living Root Bridges</h3>
           <a class="v-slide-image-link" href="https://imagedelivery.net/AqOYYty1zFQTgiffq2rkbg/india-living-root-bridge-double-decker-9f88010e7f/width=720,height=480,fit=cover" target="_blank" rel="noopener noreferrer">
             <img class="v-slide-image" src="https://imagedelivery.net/AqOYYty1zFQTgiffq2rkbg/india-living-root-bridge-double-decker-9f88010e7f/width=720,height=480,fit=cover" alt="Slide image 6">
           </a>
-          <p>Example paragraph for slide 6. Replace this text later with your own explanation or observations.</p>
+          <p><span class="slide-label">Location:</span> Meghalaya, India.<br><span class="slide-label">Period:</span> Traditional practice (hundreds of years).<br><span class="slide-label">Materials:</span> Living tree roots (rubber fig trees).<br><span class="slide-label">Type:</span> Natural bridge.<br><span class="slide-label">Purpose:</span> Crossing rivers in forest regions.<br><span class="slide-label">Details:</span> These bridges are a unique example of sustainable engineering, combining nature and human creativity.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://www.farawayworlds.com/guides/living-root-bridges-of-india">https://imagedelivery.net/AqOYYty1zFQTgiffq2rkbg/india-living-root-bridge-double-decker-9f88010e7f/width=720,height=480,fit=cover</a></span></p>
         </div>
         <div class="v-slide">
+          <h3 class="v-slide-title">Cebu–Cordova Link Expressway (CCLEX)</h3>
           <a class="v-slide-image-link" href="https://cebuchamber.org/assets/uploads/2023/12/CCLEX-Now-Day-Shot-1-Large-1-980x735.jpeg" target="_blank" rel="noopener noreferrer">
             <img class="v-slide-image" src="https://cebuchamber.org/assets/uploads/2023/12/CCLEX-Now-Day-Shot-1-Large-1-980x735.jpeg" alt="Slide image 7">
           </a>
-          <p>Example paragraph for slide 7. This sample keeps the same alignment and vertical rhythm.</p>
+          <p><span class="slide-label">Location:</span> Cebu City – Cordova, Philippines.<br><span class="slide-label">Year Completed:</span> 2022.<br><span class="slide-label">Materials:</span> Steel, concrete.<br><span class="slide-label">Type:</span> Cable-stayed bridge.<br><span class="slide-label">Purpose:</span> Major highway connection.<br><span class="slide-label">Details:</span> It is currently the longest bridge in the Philippines and plays a vital role in regional development.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://cebuchamber.org/cebu-cordova-link-expressway-corp-bridging-communities-connecting-futures/" target="_blank" rel="noopener noreferrer">https://cebuchamber.org/assets/uploads/2023/12/CCLEX-Now-Day-Shot-1-Large-1-980x735.jpeg</a></span></p>
         </div>
         <div class="v-slide">
+          <h3 class="v-slide-title">San Juanico Bridge</h3>
           <a class="v-slide-image-link" href="https://static.tripzilla.ph/media/119706/conversions/san-juanico-bridge-w1024.webp" target="_blank" rel="noopener noreferrer">
             <img class="v-slide-image" src="https://static.tripzilla.ph/media/119706/conversions/san-juanico-bridge-w1024.webp" alt="Slide image 8">
           </a>
-          <p>Example paragraph for slide 8. Add your own content here once you finalize your section details.</p>
+          <p><span class="slide-label">Location:</span> Leyte – Samar, Philippines.<br><span class="slide-label">Year Completed:</span> 1973.<br><span class="slide-label">Materials:</span> Steel and concrete.<br><span class="slide-label">Type:</span> Arch bridge.<br><span class="slide-label">Purpose:</span> Connects Leyte and Samar.<br><span class="slide-label">Details:</span> It is known for its scenic beauty and remains one of the most iconic bridges in the country.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://www.tripzilla.ph/san-juanico-bridge-leyte-samar-philippines/11657" target="_blank" rel="noopener noreferrer">https://static.tripzilla.ph/media/119706/conversions/san-juanico-bridge-w1024.webp</a></span></p>
         </div>
         <div class="v-slide">
+          <h3 class="v-slide-title">Binondo–Intramuros Bridge</h3>
           <a class="v-slide-image-link" href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Puente_Binondo%E2%80%93Intramuros%2C_Manila%2C_Filipinas%2C_2023-08-27%2C_DD_135-137_HDR.jpg/330px-Puente_Binondo%E2%80%93Intramuros%2C_Manila%2C_Filipinas%2C_2023-08-27%2C_DD_135-137_HDR.jpg" target="_blank" rel="noopener noreferrer">
-            <img class="v-slide-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Puente_Binondo%E2%80%93Intramuros%2C_Manila%2C_Filipinas%2C_2023-08-27%2C_DD_135-137_HDR.jpg/330px-Puente_Binondo%E2%80%93Intramuros%2C_Manila%2C_Filipinas%2C_2023-08-27%2C_DD_135-137_HDR.jpg" alt="Slide image 9">
+            <img class="v-slide-image" src="https://upload.wikimedia.org/wikipedia/commons/7/74/Intramuros-Binondo_Bridge.jpg" alt="Slide image 9">
           </a>
-          <p>Example paragraph for slide 9. Final placeholder text for the vertical slideshow container.</p>
+          <p><span class="slide-label">Location:</span> Manila, Philippines.<br><span class="slide-label">Year Completed:</span> 2022.<br><span class="slide-label">Materials:</span> Steel.<br><span class="slide-label">Type:</span> Tied-arch bridge.<br><span class="slide-label">Purpose:</span> Connects Binondo and Intramuros across Pasig River.<br><span class="slide-label">Details:</span> This modern bridge enhances connectivity while preserving the cultural and historical surroundings of the area.<span class="slide-source"><span class="slide-label">Image source:</span> <a href="https://commons.wikimedia.org/wiki/File:Intramuros-Binondo_Bridge.jpg" target="_blank" rel="noopener noreferrer">https://upload.wikimedia.org/wikipedia/commons/7/74/Intramuros-Binondo_Bridge.jpg</a></span></p>
         </div>
       </div>
     </section>
   </div>
 
   <footer id="contact">
-    <h3>Contact Me</h3>
-    <div class="contact-links">
-      <a href="mailto:bobbymdubb17@gmail.com">Gmail: bobbymdubb17@gmail.com</a>
-      <a href="https://www.facebook.com/bobby.dubb.33" target="_blank" rel="noopener noreferrer">Facebook Profile</a>
-    </div>
+    <section class="footer-credits" aria-label="Credits and sources">
+      <h3>Credits / Sources</h3>
+      <p>Image and reference pages used in this project:</p>
+      <ul class="credits-list">
+        <li><a href="https://www.researchgate.net/publication/396475333_History_of_Bridges_Materials_and_Structural_Types_of_a_Monument_to_Progress" target="_blank" rel="noopener noreferrer">https://www.researchgate.net/publication/396475333_History_of_Bridges_Materials_and_Structural_Types_of_a_Monument_to_Progress</a></li>
+        <li><a href="https://www.britannica.com/technology/bridge-engineering" target="_blank" rel="noopener noreferrer">https://www.britannica.com/technology/bridge-engineering</a></li>
+        <li><a href="https://www.historyofbridges.com/" target="_blank" rel="noopener noreferrer">https://www.historyofbridges.com/</a></li>
+        <li><a href="https://usbridge.com/the-history-of-bridges/" target="_blank" rel="noopener noreferrer">https://usbridge.com/the-history-of-bridges/</a></li>
+        <li><a href="https://www.historyofbridges.com/" target="_blank" rel="noopener noreferrer">https://www.historyofbridges.com/</a></li>
+        <li><a href="https://www.creativecompositesgroup.com/blog/the-oldest-and-last-incan-bridge" target="_blank" rel="noopener noreferrer">https://www.creativecompositesgroup.com/blog/the-oldest-and-last-incan-bridge</a></li>
+        <li><a href="https://www.worldhistory.org/Roman_Architecture/" target="_blank" rel="noopener noreferrer">https://www.worldhistory.org/Roman_Architecture/</a></li>
+        <li><a href="https://www.turismoroma.it/en/places/pons-fabricius" target="_blank" rel="noopener noreferrer">https://www.turismoroma.it/en/places/pons-fabricius</a></li>
+        <li><a href="https://www.britannica.com/place/Rome" target="_blank" rel="noopener noreferrer">https://www.britannica.com/place/Rome</a></li>
+        <li><a href="https://www.ironbridge.org.uk/" target="_blank" rel="noopener noreferrer">https://www.ironbridge.org.uk/</a></li>
+        <li><a href="https://www.britannica.com/topic/Iron-Bridge" target="_blank" rel="noopener noreferrer">https://www.britannica.com/topic/Iron-Bridge</a></li>
+        <li><a href="https://www.history.com/topics/landmarks/brooklyn-bridge" target="_blank" rel="noopener noreferrer">https://www.history.com/topics/landmarks/brooklyn-bridge</a></li>
+        <li><a href="https://www.nyc.gov/html/dot/html/infrastructure/brooklyn-bridge.shtml" target="_blank" rel="noopener noreferrer">https://www.nyc.gov/html/dot/html/infrastructure/brooklyn-bridge.shtml</a></li>
+        <li><a href="https://www.jb-honshi.co.jp/english/bridge/akashikaikyo/" target="_blank" rel="noopener noreferrer">https://www.jb-honshi.co.jp/english/bridge/akashikaikyo/</a></li>
+        <li><a href="https://www.japan-guide.com/e/e3500.html" target="_blank" rel="noopener noreferrer">https://www.japan-guide.com/e/e3500.html</a></li>
+        <li><a href="https://www.britannica.com/topic/Akashi-Kaikyo-Bridge" target="_blank" rel="noopener noreferrer">https://www.britannica.com/topic/Akashi-Kaikyo-Bridge</a></li>
+        <li><a href="https://www.britannica.com/topic/Brooklyn-Bridge" target="_blank" rel="noopener noreferrer">https://www.britannica.com/topic/Brooklyn-Bridge</a></li>
+      </ul>
+    </section>
   </footer>
 
   <script>

@@ -143,6 +143,48 @@
       transform: translateX(2px);
     }
 
+    .drawer-nav {
+      margin-top: 6px;
+      margin-bottom: 12px;
+      color: #e5e7eb;
+      background: rgba(31, 31, 31, 0.85);
+      border: 1px solid #454545;
+      border-radius: 14px;
+      padding: 14px;
+      clear: both;
+    }
+
+    .drawer-nav h3 {
+      font-size: 17px;
+      margin-bottom: 10px;
+      letter-spacing: 0.03em;
+      color: #f8fafc;
+    }
+
+    .drawer-nav-links {
+      display: grid;
+      gap: 10px;
+    }
+
+    .drawer-nav-links a {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: rgba(38, 38, 38, 0.95);
+      border: 1px solid #5a5a5a;
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: #f1f1f1;
+      text-decoration: none;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .drawer-nav-links a:hover {
+      background: #3d3d3d;
+      border-color: #7a7a7a;
+      transform: translateX(2px);
+    }
+
     .credits-list {
       margin-left: 18px;
       display: grid;
@@ -731,7 +773,7 @@
       }
 
       .header-nav {
-        gap: 6px;
+        display: none;
       }
 
       .header-nav a {
@@ -813,14 +855,19 @@
 
     @media (max-width: 600px) {
       header {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         padding: 10px 12px;
       }
 
+      header > div {
+        flex: 1;
+        min-width: 0;
+      }
+
       .header-nav {
-        width: 100%;
-        gap: 6px;
+        display: none;
       }
 
       .header-nav a {
@@ -996,6 +1043,16 @@
   <div id="drawerOverlay" class="drawer-overlay" onclick="closeDrawer()"></div>
   <div id="leftDrawer" class="left-drawer">
     <button class="drawer-close-btn" onclick="closeDrawer()" aria-label="Close menu">x</button>
+    <section class="drawer-nav" aria-label="Navigation links">
+      <h3>Menu</h3>
+      <div class="drawer-nav-links">
+        <a href="#home" onclick="closeDrawer()">Home</a>
+        <a href="#history" onclick="closeDrawer()">History</a>
+        <a href="#about" onclick="closeDrawer()">Types</a>
+        <a href="#services" onclick="closeDrawer()">Examples</a>
+        <a href="#contact" onclick="closeDrawer()">Sources</a>
+      </div>
+    </section>
     <section class="drawer-contact" aria-label="Contact information">
       <h3>Contact Me</h3>
       <p>Reach out through the links below:</p>

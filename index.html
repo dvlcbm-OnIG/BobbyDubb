@@ -55,14 +55,15 @@
       left: -100%;
       width: min(340px, 86vw);
       height: 100vh;
-      background: linear-gradient(180deg, #1f1f1f 0%, #242424 52%, #1a1a1a 100%);
-      border-right: 1px solid #3a3a3a;
-      box-shadow: 16px 0 44px rgba(0, 0, 0, 0.38);
-      transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease, border-color 0.4s ease;
+      background: rgba(20, 20, 25, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 16px 0 44px rgba(0, 0, 0, 0.5);
+      transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, border-color 0.4s ease;
       z-index: 1100;
-      padding: 18px 16px 24px;
+      padding: 24px 20px 30px;
       overflow-y: auto;
-      backdrop-filter: blur(4px);
     }
 
     .left-drawer.active {
@@ -72,117 +73,153 @@
     .left-drawer::before {
       content: "";
       display: block;
-      width: 74px;
-      height: 4px;
+      width: 60px;
+      height: 5px;
       border-radius: 999px;
-      background: linear-gradient(90deg, #9ca3af, #e5e7eb);
-      margin-bottom: 14px;
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      margin: 0 auto 20px auto;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
     }
 
     .drawer-close-btn {
-      font-size: 18px;
+      font-size: 20px;
       line-height: 1;
       cursor: pointer;
-      border: 1px solid #5b5b5b;
-      border-radius: 999px;
-      padding: 6px 11px;
-      background: rgba(34, 34, 34, 0.75);
-      color: #f8fafc;
-      margin-bottom: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
       float: right;
+      transition: all 0.3s ease;
     }
 
     .drawer-close-btn:hover {
-      background: #3a3a3a;
+      background: rgba(255, 0, 255, 0.2);
+      border-color: #ff00ff;
+      box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
+      transform: rotate(90deg);
     }
 
     .drawer-contact {
       margin-top: 6px;
       color: #e5e7eb;
-      background: rgba(31, 31, 31, 0.85);
-      border: 1px solid #454545;
-      border-radius: 14px;
-      padding: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px;
       clear: both;
     }
 
     .drawer-contact h3 {
-      font-size: 17px;
+      font-size: 18px;
       margin-bottom: 6px;
-      letter-spacing: 0.03em;
-      color: #f8fafc;
+      letter-spacing: 0.05em;
+      color: #fff;
+      text-transform: uppercase;
     }
 
     .drawer-contact p {
-      font-size: 13px;
+      font-size: 14px;
       line-height: 1.55;
       color: #cbd5e1;
-      margin-bottom: 12px;
+      margin-bottom: 15px;
     }
 
     .drawer-contact .contact-links {
       display: grid;
-      gap: 10px;
+      gap: 12px;
       margin-top: 2px;
     }
 
     .drawer-contact .contact-links a {
       width: 100%;
       text-align: left;
-      background: rgba(38, 38, 38, 0.95);
-      border: 1px solid #5a5a5a;
-      border-radius: 10px;
-      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 12px 15px;
       color: #f1f1f1;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      transition: all 0.3s ease;
     }
 
     .drawer-contact .contact-links a:hover {
-      background: #3d3d3d;
-      border-color: #7a7a7a;
-      transform: translateX(2px);
+      background: rgba(0, 255, 255, 0.1);
+      border-color: #00ffff;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+      transform: translateX(4px);
     }
 
     .drawer-nav {
-      margin-top: 6px;
-      margin-bottom: 12px;
+      margin-top: 10px;
+      margin-bottom: 20px;
       color: #e5e7eb;
-      background: rgba(31, 31, 31, 0.85);
-      border: 1px solid #454545;
-      border-radius: 14px;
-      padding: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 18px;
       clear: both;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
     }
 
     .drawer-nav h3 {
-      font-size: 17px;
-      margin-bottom: 10px;
-      letter-spacing: 0.03em;
-      color: #f8fafc;
+      font-size: 18px;
+      margin-bottom: 15px;
+      letter-spacing: 0.05em;
+      color: #fff;
+      text-transform: uppercase;
+      text-shadow: 0 0 5px rgba(255,255,255,0.3);
     }
 
     .drawer-nav-links {
-      display: grid;
-      gap: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .drawer-nav-links a {
       display: block;
       width: 100%;
       text-align: left;
-      background: rgba(38, 38, 38, 0.95);
-      border: 1px solid #5a5a5a;
-      border-radius: 10px;
-      padding: 10px 12px;
-      color: #f1f1f1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #e2e8f0;
+      font-weight: 500;
       text-decoration: none;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
     .drawer-nav-links a:hover {
-      background: #3d3d3d;
-      border-color: #7a7a7a;
-      transform: translateX(2px);
+      background: rgba(0, 255, 255, 0.15);
+      border-color: #00ffff;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+      transform: translateX(6px);
+    }
+    
+    .drawer-nav-links a.author-link {
+      background: linear-gradient(135deg, rgba(255,0,255,0.2), rgba(0,255,255,0.2));
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 0 0 5px rgba(255,255,255,0.5);
+      margin-bottom: 16px; /* Gap from the rest of the nav */
+    }
+    
+    .drawer-nav-links a.author-link:hover {
+      background: linear-gradient(135deg, rgba(255,0,255,0.4), rgba(0,255,255,0.4));
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+      transform: translateY(-2px);
     }
 
     .credits-list {
@@ -1132,6 +1169,9 @@
       .mobile-toggle {
         display: none !important;
       }
+      .mobile-only-nav {
+        display: none !important;
+      }
     }
 
     /* Dark Mode Theme */
@@ -1241,20 +1281,13 @@
         <button id="themeToggleMobile" class="theme-toggle-btn mobile-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">🌙 Mode</button>
       </div>
       <div class="drawer-nav-links">
-        <a href="#home" onclick="closeDrawer()">Home</a>
-        <a href="#history" onclick="closeDrawer()">History</a>
-        <a href="#about" onclick="closeDrawer()">Types</a>
-        <a href="#services" onclick="closeDrawer()">Examples</a>
-        <a href="#failures" onclick="closeDrawer()">Failures</a>
-        <a href="#contact" onclick="closeDrawer()">Sources</a>
-      </div>
-    </section>
-    <section class="drawer-contact" aria-label="Contact information">
-      <h3>Contact Me</h3>
-      <p>Reach out through the links below:</p>
-      <div class="contact-links">
-        <a href="mailto:bobbymdubb17@gmail.com">Gmail: bobbymdubb17@gmail.com</a>
-        <a href="https://www.facebook.com/bobby.dubb.33" target="_blank" rel="noopener noreferrer">Facebook Profile</a>
+        <a href="author.html" class="author-link" onclick="closeDrawer()">About the author of this website</a>
+        <a href="#home" class="mobile-only-nav" onclick="closeDrawer()">Home</a>
+        <a href="#history" class="mobile-only-nav" onclick="closeDrawer()">History</a>
+        <a href="#about" class="mobile-only-nav" onclick="closeDrawer()">Types</a>
+        <a href="#services" class="mobile-only-nav" onclick="closeDrawer()">Examples</a>
+        <a href="#failures" class="mobile-only-nav" onclick="closeDrawer()">Failures</a>
+        <a href="#contact" class="mobile-only-nav" onclick="closeDrawer()">Sources</a>
       </div>
     </section>
   </div>

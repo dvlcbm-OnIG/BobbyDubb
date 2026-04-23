@@ -158,6 +158,7 @@
     .drawer-nav {
       margin-top: 10px;
       margin-bottom: 20px;
+      height: 70%;
       color: #e5e7eb;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1291,13 +1292,13 @@
   <div id="drawerOverlay" class="drawer-overlay" onclick="closeDrawer()"></div>
   <div id="leftDrawer" class="left-drawer">
     <button class="drawer-close-btn" onclick="closeDrawer()" aria-label="Close menu">x</button>
-    <section class="drawer-nav" aria-label="Navigation links">
+    <section class="drawer-nav" aria-label="Navigation links" >
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h3 style="margin-bottom: 0;">Menu</h3>
         <button id="themeToggleMobile" class="theme-toggle-btn mobile-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">🌙 Mode</button>
       </div>
       <div class="drawer-nav-links">
-        <a href="author.html" class="author-link" onclick="closeDrawer()">About the author of this website</a>
+        <a href="author.html" class="author-link" onclick="closeDrawer()">About Me</a>
         <a href="#home" class="mobile-only-nav" onclick="closeDrawer()">Home</a>
         <a href="#history" class="mobile-only-nav" onclick="closeDrawer()">History</a>
         <a href="#about" class="mobile-only-nav" onclick="closeDrawer()">Types</a>
